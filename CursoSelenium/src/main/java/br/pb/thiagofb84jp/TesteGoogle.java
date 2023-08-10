@@ -17,8 +17,8 @@ public class TesteGoogle {
 
     @Before
     public void setup() {
-//        driver = new FirefoxDriver();
-        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
+//        driver = new ChromeDriver();
         driver.get("https://www.google.com");
         driver.manage().window().maximize();
     }
