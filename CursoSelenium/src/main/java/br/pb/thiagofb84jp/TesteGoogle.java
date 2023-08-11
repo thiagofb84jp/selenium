@@ -19,8 +19,8 @@ public class TesteGoogle {
     public void setup() {
 //        driver = new FirefoxDriver();
         driver = new ChromeDriver();
-        driver.get("https://www.google.com");
         driver.manage().window().maximize();
+        driver.get("https://www.google.com");
     }
 
     @Test
@@ -30,6 +30,6 @@ public class TesteGoogle {
 
     @After
     public void closeBrowser() {
-        driver.close();
+        driver.quit();
     }
 }
