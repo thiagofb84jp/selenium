@@ -1,13 +1,11 @@
 package br.pb.thiagofb84jp;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -66,13 +64,51 @@ public class TesteCampoTreinamento {
         Assert.assertEquals(8, options.size());
 
         boolean encontrou = false;
-        for (WebElement option: options) {
+        for (WebElement option : options) {
             if (option.getText().equals("Mestrado")) {
                 encontrou = true;
                 break;
             }
         }
         Assert.assertTrue(encontrou);
+    }
+
+    @Test
+    public void deveVerificarValoresComboMultiplo() {
+        WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+        Select combo = new Select(element);
+
+        combo.selectByVisibleText("Natacao");
+        combo.selectByVisibleText("Corrida");
+        combo.selectByVisibleText("O que eh esporte?");
+
+        List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
+        Assert.assertEquals(3, allSelectedOptions.size());
+
+        combo.deselectByVisibleText("Corrida");
+        allSelectedOptions = combo.getAllSelectedOptions();
+        Assert.assertEquals(2, allSelectedOptions.size());
+    }
+
+    @Test
+    public void deveInteragirComBotoes() {
+        WebElement botao = driver.findElement(By.id("buttonSimple"));
+        botao.click();
+        Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+    }
+
+    @Test
+    public void deveInteragirComLinks() {
+        driver.findElement(By.linkText("Voltar")).click();
+        Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+    }
+
+    @Test
+    public void deveBuscarTextosNaPagina() {
+//        Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Campo de Treinamento"));
+        Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+        Assert.assertEquals("Cuidado onde clica, muitas armadilhas...",
+                driver.findElement(By.className("facilAchar")).getText());
     }
 
     @After
