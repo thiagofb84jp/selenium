@@ -8,6 +8,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 
 public class TesteAlert {
 
@@ -15,7 +16,8 @@ public class TesteAlert {
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
+        ChromeDriverService service = new ChromeDriverService.Builder().withLogOutput(System.out).build();
+        driver = new ChromeDriver(service);
         driver.manage().window().maximize();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
     }
@@ -51,7 +53,7 @@ public class TesteAlert {
     public void deveInteragirComPrompt() {
         driver.findElement(By.id("prompt")).click();
         Alert alerta = driver.switchTo().alert();
-        Assert.assertEquals("Digite um número", alerta.getText());
+        Assert.assertEquals("Digite um numero", alerta.getText());
     }
 
     @After

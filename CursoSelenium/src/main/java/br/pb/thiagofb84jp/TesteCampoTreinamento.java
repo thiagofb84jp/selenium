@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.support.events.WebDriverListener;
 import org.openqa.selenium.support.ui.Select;
 
@@ -15,7 +16,8 @@ public class TesteCampoTreinamento {
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
+        ChromeDriverService service = new ChromeDriverService.Builder().withLogOutput(System.out).build();
+        driver = new ChromeDriver(service);
         driver.manage().window().maximize();
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
     }
