@@ -1,4 +1,4 @@
-package br.pb.thiagofb84jp;
+package br.pb.thiagofb84jp.campoTreinamento;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.junit.After;

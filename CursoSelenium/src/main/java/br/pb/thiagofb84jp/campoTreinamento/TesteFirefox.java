@@ -1,4 +1,4 @@
-package br.pb.thiagofb84jp;
+package br.pb.thiagofb84jp.campoTreinamento;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
