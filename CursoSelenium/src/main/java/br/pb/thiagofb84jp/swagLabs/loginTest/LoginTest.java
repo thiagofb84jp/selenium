@@ -1,5 +1,8 @@
 package br.pb.thiagofb84jp.swagLabs.loginTest;
 
+import br.pb.thiagofb84jp.swagLabs.core.Core;
+import br.pb.thiagofb84jp.swagLabs.loginPage.LoginPage;
+import org.checkerframework.checker.fenum.qual.SwingTextOrientation;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,39 +12,71 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 
+import java.util.concurrent.TimeUnit;
 
-//https://github.com/thiagofb84jp/studies-qa/blob/master/AddressBook/java/br/pb/selenium/addressbook/test/SignInTest.java
-//https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
-//https://the-internet.herokuapp.com/
-//https://phptravels.org/login
-//https://gist.github.com/miodeqqq/b416b42e1573e6d35f464375297a070c
-//https://demoqa.com/login
-
-public class LoginTest {
+public class LoginTest extends Core {
 
     private static final String URL_SWAG_LABS = "https://www.saucedemo.com/";
 
-    WebDriver driver;
+    LoginPage loginPage = new LoginPage(driver);
 
-    @Before
-    public void setup() {
-        ChromeDriverService service = new ChromeDriverService.Builder().withLogOutput(System.out).build();
-        driver = new ChromeDriver(service);
-        driver.manage().window().maximize();
+    public LoginTest() {
         driver.get(URL_SWAG_LABS);
     }
 
     @Test
     public void shouldLoginWithSuccessful() {
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
-        driver.findElement(By.id("login-button")).click();
-
-        Assert.assertEquals("Products", driver.findElement(By.xpath("//span[text()='Products']")).getText());
+        loginPage.setUsername("standard_user");
+        loginPage.setPassword("secret_sauce");
+        loginPage.clickBtnLogin();
+        loginPage.validateMsgLoggedUser("Products");
     }
 
-    @After
-    public void tearDown() {
-        driver.close();
+    @Test
+    public void shouldNotloginWithoutToFillUsername() {
+        loginPage.setPassword("secret_sauce");
+        loginPage.clickBtnLogin();
+        loginPage.validateMsgUserWithoutUsername("Epic sadface: Username is required");
+    }
+
+    @Test
+    public void shouldNotloginWithoutToFillPassword() {
+        loginPage.setUsername("secret_sauce");
+        loginPage.clickBtnLogin();
+        loginPage.validateMsgUserWithoutPassword("Epic sadface: Password is required");
+    }
+
+    @Test
+    public void shouldLoginPerformanceGlitchUser() {
+        loginPage.setUsername("performance_glitch_user");
+        loginPage.setPassword("secret_sauce");
+        loginPage.clickBtnLogin();
+        loginPage.validateMsgLoggedUser("Products");
+    }
+
+    @Test
+    public void shouldNotLoginWithUserLockedOut() {
+        loginPage.setUsername("locked_out_user");
+        loginPage.setPassword("secret_sauce");
+        loginPage.clickBtnLogin();
+        loginPage.validateMsgUserLockedOut("Epic sadface: Sorry, this user has been locked out.");
+    }
+
+    @Test
+    public void shouldNotLoginWithDiffPassword() {
+        loginPage.setUsername("standard_user");
+        loginPage.setPassword("abcd_123");
+        loginPage.clickBtnLogin();
+        loginPage.validateMsgLoginWithDiffPassword("Epic sadface: Username and password do not match any user in this service");
+    }
+
+    @Test
+    public void shouldLogout() {
+        loginPage.setUsername("standard_user");
+        loginPage.setPassword("secret_sauce");
+        loginPage.clickBtnLogin();
+        loginPage.clickBtnMenu();
+        loginPage.clickLogoutLink();
+        loginPage.isButtonAvailableOnThePage();
     }
 }
