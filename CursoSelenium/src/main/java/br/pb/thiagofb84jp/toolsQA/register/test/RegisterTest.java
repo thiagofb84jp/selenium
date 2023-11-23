@@ -1,7 +1,8 @@
-package br.pb.thiagofb84jp.toolsQA.registerTest;
+package br.pb.thiagofb84jp.toolsQA.register.test;
 
 import br.pb.thiagofb84jp.swagLabs.core.Core;
-import br.pb.thiagofb84jp.toolsQA.registerPage.RegisterPage;
+import br.pb.thiagofb84jp.toolsQA.register.page.RegisterPage;
+import org.junit.Test;
 
 public class RegisterTest extends Core {
 
@@ -13,12 +14,14 @@ public class RegisterTest extends Core {
         driver.get(URL_LOGIN_DEMOQA);
     }
 
+    @Test
     public void shouldRegisterWithSucessfully() {
         registerPage.clickNewUserButton();
         registerPage.setFirstName("Marcos");
         registerPage.setLastName("Duarte da Silva Lima");
-        registerPage.setUserName("strUserName");
-        registerPage.setPassword("strPassword");
+        registerPage.setUserName("marcos.lima");
+        registerPage.setPassword("abcd_123");
         registerPage.clickRegisterButton();
+        registerPage.clickCaptcha();
     }
 }
