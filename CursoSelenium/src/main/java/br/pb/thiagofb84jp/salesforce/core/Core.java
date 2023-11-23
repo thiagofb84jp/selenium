@@ -1,4 +1,4 @@
-package br.pb.thiagofb84jp.swagLabs.core;
+package br.pb.thiagofb84jp.salesforce.core;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -22,6 +22,6 @@ public class Core {
 
     @AfterClass
     public static void tearDown() {
-//        driver.quit();
+        driver.quit();
     }
 }
