@@ -18,10 +18,11 @@ public class Core {
         driver = new ChromeDriver(service);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+        driver.navigate().refresh();
     }
 
     @AfterClass
     public static void tearDown() {
-        driver.quit();
+//        driver.quit();
     }
 }

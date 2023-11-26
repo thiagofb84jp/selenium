@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class TextBoxTest extends Core {
 
-    private static final String URL_DEMO_QA = "https://demoqa.com/";
+    private static final String URL_DEMO_QA = "https://demoqa.com/text-box";
 
     TextBoxPage textBoxPage = new TextBoxPage(driver);
 
@@ -16,11 +16,20 @@ public class TextBoxTest extends Core {
 
     @Test
     public void shouldSubmitWithSuccessfully() {
-        textBoxPage.clickTextBoxLink("Text Box");
-        textBoxPage.setFullName("strFullName");
-        textBoxPage.setEmail("strFullEmail");
-        textBoxPage.setCurrentAddress("strCurrentAddress");
-        textBoxPage.setPermanentAddress("strPermanentAddress");
+        String name = "Jonathan dos Santos Barbosa Silva Paiva";
+        String email = "jonathan.barbosa@email.com";
+        String address = "Rua dos Sonhos Perdidos da Silva, no. 55";
+        String permanentAddress = "Rua Jesus Menino Praga Andrade Barreto, no. 82";
+
+        textBoxPage.setFullName(name);
+        textBoxPage.setEmail(email);
+        textBoxPage.setCurrentAddress(address);
+        textBoxPage.setPermanentAddress(permanentAddress);
         textBoxPage.clickSubmitButton();
+
+        textBoxPage.verifyName("Name:" + name);
+        textBoxPage.verifyEmail(email);
+        textBoxPage.verifyCurrentAddress(address);
+        textBoxPage.verifyPermanentAddress(permanentAddress);
     }
 }
