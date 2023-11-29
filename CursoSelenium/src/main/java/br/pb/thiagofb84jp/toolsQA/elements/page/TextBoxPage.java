@@ -19,6 +19,9 @@ public class TextBoxPage {
     By permanentAddress = By.id("permanentAddress");
     By submitButton = By.id("submit");
     By msgName = By.id("name");
+    By msgEmail = By.id("email");
+    By msgCurrentAddress = By.xpath("//p[@id='currentAddress']");
+    By msgPermanentAddress = By.xpath("//p[@id='permanentAddress']");
 
     public TextBoxPage(WebDriver driver) {
         this.driver = driver;
@@ -59,11 +62,17 @@ public class TextBoxPage {
     }
 
     public void verifyEmail(String email) {
+        String getResult = driver.findElement(msgEmail).getText();
+        Assert.assertEquals(getResult, email);
     }
 
     public void verifyCurrentAddress(String address) {
+        String getResult = driver.findElement(msgCurrentAddress).getText();
+        Assert.assertEquals(getResult, address);
     }
 
     public void verifyPermanentAddress(String permanentAddress) {
+        String getResult = driver.findElement(msgPermanentAddress).getText();
+        Assert.assertEquals(getResult, permanentAddress);
     }
 }

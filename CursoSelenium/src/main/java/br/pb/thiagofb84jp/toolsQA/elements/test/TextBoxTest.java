@@ -28,8 +28,8 @@ public class TextBoxTest extends Core {
         textBoxPage.clickSubmitButton();
 
         textBoxPage.verifyName("Name:" + name);
-        textBoxPage.verifyEmail(email);
-        textBoxPage.verifyCurrentAddress(address);
-        textBoxPage.verifyPermanentAddress(permanentAddress);
+        textBoxPage.verifyEmail("Email:" + email);
+        textBoxPage.verifyCurrentAddress("Current Address :" + address);
+        textBoxPage.verifyPermanentAddress("Permananet Address :" + permanentAddress);
     }
 }

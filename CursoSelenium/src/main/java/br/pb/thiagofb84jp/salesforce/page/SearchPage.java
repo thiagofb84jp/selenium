@@ -15,6 +15,7 @@ public class SearchPage {
 
     By searchText = By.xpath("//div[@class='magic-box-input']/input");
     By searchButton = By.xpath("//span[@class='coveo-search-button']");
+    By cookiesButton = By.xpath("//button[@id='onetrust-accept-btn-handler']");
     By linkCustomHelpCentral = By.xpath("//a[@class='CoveoResultLink coveo-accessible-button ResultLinkClicked']");
     By resultSearch = By.xpath("//a[@class='CoveoResultLink coveo-accessible-button ResultLinkClicked']");
     By titleResultSearch = By.xpath("//h1[@class='slds-text-heading_large']");
@@ -26,15 +27,22 @@ public class SearchPage {
 
     public void setSearch(String strSearch) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(searchText));
+        wait.until(ExpectedConditions.elementToBeClickable(searchText));
 
         driver.findElement(searchText).click();
         driver.findElement(searchText).clear();
-        driver.findElement(searchText).sendKeys();
+        driver.findElement(searchText).sendKeys(strSearch);
     }
 
     public void clickSearchButton() {
         driver.findElement(searchButton).click();
+    }
+
+    public void clickAcceptCookies() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.presenceOfElementLocated(cookiesButton));
+
+        driver.findElement(cookiesButton).click();
     }
 
     public void clickLink(String customHelpCentral) {
@@ -46,7 +54,7 @@ public class SearchPage {
 
     public void verifyResultSearch(String strMsgResult) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(resultSearch));
+        wait.until(ExpectedConditions.presenceOfElementLocated(resultSearch));
 
         String getResult = driver.findElement(resultSearch).getText();
         Assert.assertEquals(getResult, strMsgResult);

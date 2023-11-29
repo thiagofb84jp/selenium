@@ -16,10 +16,11 @@ public class SearchTest extends Core {
 
     @Test
     public void shouldSearchWithSuccessfully() {
-        searchPage.setSearch("search");
+        searchPage.clickAcceptCookies();
+        searchPage.setSearch("Custom Help Content");
         searchPage.clickSearchButton();
-        searchPage.verifyResultSearch("Custom Help Central");
-        searchPage.clickLink("Custom Help Central");
-        searchPage.verifyTitleResultSearch("Custom Help Central");
+        searchPage.verifyResultSearch("Custom Help Content");
+        searchPage.clickLink("Custom Help Content");
+        searchPage.verifyTitleResultSearch("Custom Help Content");
     }
 }
